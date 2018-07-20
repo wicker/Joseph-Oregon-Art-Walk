@@ -84,6 +84,14 @@ There must be an additional graphic to reset all inputs.
 
 ![Commit #eed94b0](docs/progress-commit-eed94b0-view.png)
 
-`commit #752ea83: feat: feat: Create and bind markers list [mv]`
+`commit #752ea83: feat: Create and bind markers list [mv]`
 
 ![Commit #752ea83](docs/progress-commit-752ea83-view.png)
+
+The observable arrays in Knockout are only observable at the level of the array themselves, so the View-Model will know to re-render the array if an element is added or removed, but not if an element is changed. The elements themselves are not observable. The trick is a somewhat dirty hack from [this StackOverflow question](https://stackoverflow.com/questions/13231738/refresh-observablearray-when-items-are-not-observables).
+
+`commit #22c3721: feat: Manage observable markers array, update list`
+
+![Commit #22c3721](docs/progress-commit-22c3721-view.png)
+
+
