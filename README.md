@@ -83,3 +83,7 @@ There must be an additional graphic to reset all inputs.
 `commit #eed94b0: feat: Add basic html and css [view]` 
 
 ![Commit #eed94b0](docs/progress-commit-eed94b0-view.png)
+
+`commit #752ea83: feat: feat: Create and bind markers list [mv]`
+
+![Commit #752ea83](docs/progress-commit-752ea83-view.png)
