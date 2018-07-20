@@ -21,7 +21,7 @@ The call to the [Joseph Art Walk API](https://api.josephartwalk.org) returns a l
 |Example Property|Example Value|
 |----------------|-------------|
 |artist|"Ramon Parmenter"|
-|artistURL "http://josephoregon.com/ramon-parmenter"|
+|artistURL|"http://josephoregon.com/ramon-parmenter"|
 |location|"in front of The Dog Spot"|
 |lat 45.35149|
 |lng -117.229985|
@@ -53,7 +53,11 @@ The user interface items in the view are:
 - Google map to display markers
 - Search box
 - Dropdown menu
-- Unorderd list of locations
+  - All
+  - Galleries
+  - Statues
+  - None
+- Unordered list of locations
 - Footer
 
 ### View-Model
