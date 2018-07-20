@@ -24,19 +24,15 @@
 
     <p id="searchBox">Search box</p>
 
-    <select id="dropdownArtType" name="artType">
-      <option id="show-all" type="button" value="all">All</option>
-      <option id="show-galleries" type="button" value="gallery">Galleries</option>
-      <option id="show-statues" type="button" value="statue">Statues</option>
-      <option id="show-none" type="button" value="none">None</option>
-    </select>
+    <select data-bind="options: artType, value: artTypeToShow, event: {change: onArtTypeChange}"></select>
+    <p data-bind="text: artTypeToShow"></p>
 
   </section>
 
   <section id="filteredListContainer">
 
     <ul id="filteredList" data-bind="foreach: markers">
-      <li data-bind="text: title, visible: showMarker"></li>
+      <li data-bind="text: title, visible: isVisible"></li>
     </ul>
 
   </section>
