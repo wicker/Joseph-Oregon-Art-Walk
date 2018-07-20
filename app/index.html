@@ -22,7 +22,9 @@
 
   <section id="filterInput">
 
-    <p id="searchBox">Search box</p>
+    <input id="searchBox" 
+           placeholder="Start typing..."
+           data-bind="textInput: searchString, event: {keyup: onSearchStringChange}" />
 
     <select data-bind="options: artType, value: artTypeToShow, event: {change: onArtTypeChange}"></select>
     <p data-bind="text: artTypeToShow"></p>

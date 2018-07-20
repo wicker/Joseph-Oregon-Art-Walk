@@ -5,6 +5,8 @@ function appViewModel(arr) {
 
   var self = this;
 
+  self.searchString = '';
+
   // - dirty hack to refresh observable arrays
   //   https://stackoverflow.com/questions/13231738
 	ko.observableArray.fn.refresh = function () {
@@ -61,18 +63,23 @@ function appViewModel(arr) {
         }
       });
     } else {
-      //
+      ko.utils.arrayForEach(self.markers(), function(marker) {
+        if (marker.title.includes(op)) {
+          marker.isVisible = true;
+        } else {
+          marker.isVisible = false;
+        }
+      });
     }
     self.markers.refresh();
   }
 
-  // - this will never be updated in the app so no need
-  //   to make it an observable array
+  // - display dropdown menu
   self.artType = ['All','Galleries','Sculptures','None'];
   self.artTypeToShow = ko.observable();
 
+  // - handle dropdown menu selections
   self.onArtTypeChange = function(d, e) {
-
     if (e.target.value == 'Galleries') {
       self.updateMarkers('gallery');
     } else if (e.target.value == 'Sculptures') {
@@ -84,8 +91,17 @@ function appViewModel(arr) {
     }
   }
 
+  // - display search box
+  self.searchString = ko.observable('');
+
+  // - handle search box input text
+
+  self.onSearchStringChange = function() {
+    self.updateMarkers(self.searchString());
+  }
 }
 
-// - instantiate with backup data in case the API call fails
-// - locations is from ./locations.js
+// - bind the ViewModel and pass in the
+//   backup data in case the API call fails
+// - locations array is from ./locations.js
 ko.applyBindings(appViewModel(locations));
