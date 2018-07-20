@@ -94,4 +94,6 @@ The observable arrays in Knockout are only observable at the level of the array 
 
 ![Commit #22c3721](docs/progress-commit-22c3721-view.png)
 
+The displayed list of statues and galleries refreshes smoothly with every keystroke in the search box. 
 
+![Commit #bd8f273](docs/progress-commit-bd8f273-view.png)
