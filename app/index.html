@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joseph Art Walk</title>
+  <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Joseph Art Walk</h1>
+  </header>
+
+  <section id="map">
+    <p>Map is loading...</p>
+  </section>
+
+  <section id="filterInput">
+
+    <p id="searchBox">Search box</p>
+
+    <select id="dropdownArtType" name="artType">
+      <option id="show-all" type="button" value="all">All</option>
+      <option id="show-galleries" type="button" value="gallery">Galleries</option>
+      <option id="show-statues" type="button" value="statue">Statues</option>
+      <option id="show-none" type="button" value="none">None</option>
+    </select>
+
+  </section>
+
+  <section id="filteredListContainer">
+
+    <p>Filtered List</p>
+
+    <ul id="filteredList" data-bind="foreach: visMarkers">
+      <li data-bind="text: title"></li>
+    </ul>
+
+  </section>
+
+</body>
+
+</html>
