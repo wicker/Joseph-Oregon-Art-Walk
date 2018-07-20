@@ -78,4 +78,8 @@ The dropdown menu must also filter the visible map markers and the list of items
 
 There must be an additional graphic to reset all inputs. 
 
+## Screenshots
 
+`commit #eed94b0: feat: Add basic html and css [view]` 
+
+![Commit #eed94b0](docs/progress-commit-eed94b0-view.png)
