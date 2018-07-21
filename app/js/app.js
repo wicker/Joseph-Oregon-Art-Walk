@@ -1,5 +1,4 @@
 // define globals
-var markers;
 var map;
 var bounds;
 var infoWindow;
@@ -11,14 +10,14 @@ var infoWindow;
 function initMap() {
   console.log('initMap');
 
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 45.3536044, lng: -117.2287397},
     zoom: 15
   });
 
-  var bounds = new google.maps.LatLngBounds();
+  bounds = new google.maps.LatLngBounds();
 
-  var infoWindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
 
 }
 
@@ -62,19 +61,114 @@ function handleJosephArtAPIError() {
 // it should contain all the properties needed by
 // - google maps to display marker, bounds, and infoWindow
 // - filteredList to display image, artist info, title, etc
-// it should contain an observable isVisible property so
+// it should contain an observable visible property so
 //   KnockoutJS knows to refresh the page when that is changed
 function initMarkers(artAPIList) {
   console.log('initMarkers', artAPIList);
+
+  var idCount = 0;
+  var marker;
+  var mapMarker;
+
+  ko.utils.arrayForEach(artAPIList, (function(artListItem) {
+
+    // prepare all the vars we'll need
+    idCount = idCount + 1;
+    marker = {};
+
+    if (artListItem.arttype == "gallery") {
+      marker.title = artListItem.gallery;
+      marker.description = 'Located ' + artListItem.location + '.';
+      marker.url = artListItem.galleryURL;
+      marker.imgSrc = '';
+      marker.imgAlt = '';
+    }
+    else if (artListItem.arttype == "statue") {
+      marker.title = artListItem.title;
+      marker.artist = artListItem.artist;
+      marker.imgSrc = artListItem.imgSrc;
+      marker.imgAlt = artListItem.imgAttribution;
+      marker.description = artListItem.title + ' by ' + artListItem.artist
+                           + ' is a ' + artListItem.medium + ' ' + artListItem.arttype
+                           + ' at ' + artListItem.corner
+                           + ' ' + artListItem.location + '.';
+      marker.url = artListItem.artistURL;
+    }
+
+    // google maps needs these in the marker
+    marker.position = {'lat':artListItem.lat,
+                       'lng':artListItem.lng};
+    marker.animation = google.maps.Animation.DROP;
+    marker.id = idCount;
+    marker.map = map;
+    marker.visible = ko.observable(true);
+
+    // now build the actual maps-compatible markers
+    mapMarker = new google.maps.Marker({
+      animation: marker.animation,
+      desc: marker.description,
+      id: marker.id,
+      imgSrc: marker.imgSrc,
+      imgAlt: marker.imgAlt,
+      map: marker.map,
+      position: marker.position,
+      title: marker.title,
+      url: marker.url,
+      visible: marker.visible()
+    });
+
+    // and push it to the global markers list
+    markers().push(mapMarker);
+
+  }));
+  console.log(markers());
+
 }
 
-// change isVisible property where appropriate
+// - update the visibility of all markers
+// - acceptable operations are strings:
+//   - show_all
+//   - show_none
+//   - statue
+//   - gallery
+//   - any other strings will be treated as search results
+// change visible property where appropriate
 // force a refresh of the map and its markers
 // - clear map
 // - setMap and bounds.extend for each item
 // - map.fitBounds when finished for the whole map
-function updateMarkers() {
+function updateMarkers(op) {
   console.log('updateMarkers');
+
+  // FIGURE OUT REFRESH, SEE IF THIS CHANGE WORKED
+
+  if (op == 'show_all') {
+    ko.utils.arrayForEach(markers(), function(marker) {
+      marker.visible = true;
+    });
+  } else if (op == 'show_none') {
+    ko.utils.arrayForEach(markers(), function(marker) {
+      marker.visible = false;
+    });
+  } else if (op == 'statue' || op == 'gallery') {
+    ko.utils.arrayForEach(markers(), function(marker) {
+      if (marker.arttype == op) {
+        marker.visible = true;
+      } else {
+        marker.visible = false;
+      }
+    });
+  } else {
+    ko.utils.arrayForEach(markers(), function(marker) {
+      if (marker.title.includes(op)) {
+        marker.visible = true;
+      } else {
+        marker.visible = false;
+      }
+    });
+  }
+
+  console.log(markers());
 }
 
 // animate a marker
@@ -84,88 +178,15 @@ function animateMarker () {
   console.log('animateMarker');
 }
 
-function appViewModel(arr) {
+function appViewModel() {
 
   var self = this;
 
+  self.markers = ko.observableArray([]);
+
   self.searchString = '';
 
-  // - dirty hack to refresh observable arrays
-  //   https://stackoverflow.com/questions/13231738
-	ko.observableArray.fn.refresh = function () {
-    var data = this();
-    this(null);
-    this(data);
-	}
-
   fetchJosephArtAPI();
-
-  // - create the markers list, which is observable
-  // - set titles and visibility
-  // - the individual array elements are not observable
-  //   and require the refresh function to trigger a
-  //   re-render when the properties are updated
-  self.initMarkers2 = function() {
-    self.markers = ko.observableArray(arr);
-
-    ko.utils.arrayForEach(self.markers(), (function(marker) {
-      if (marker.arttype == "gallery") {
-        marker.title = marker.gallery;
-      } else if (marker.arttype == "statue") {
-        marker.title = marker.title;
-      }
-      marker.isVisible = true;
-
-      var infoWindow = new google.maps.InfoWindow();
-
-
-      //console.log(marker);
-
-    }));
-
-
-    self.markers.refresh();
-
-    // todo: remove all untitled elements
-    //self.markers = markers.filter(marker => marker.title != "");
-  }
-  self.initMarkers2();
-
-  // - update the vsibility of all markers
-  // - acceptable operations are strings:
-  //   - show_all
-  //   - show_none
-  //   - statue
-  //   - gallery
-  //   - any other strings will be treated as search results
-  self.updateMarkers = function(op) {
-    if (op == 'show_all') {
-      ko.utils.arrayForEach(self.markers(), function(marker) {
-        marker.isVisible = true;
-      });
-    } else if (op == 'show_none') {
-      ko.utils.arrayForEach(self.markers(), function(marker) {
-        marker.isVisible = false;
-      });
-    } else if (op == 'statue' || op == 'gallery') {
-      ko.utils.arrayForEach(self.markers(), function(marker) {
-        if (marker.arttype == op) {
-          marker.isVisible = true;
-        } else {
-          marker.isVisible = false;
-        }
-      });
-    } else {
-      ko.utils.arrayForEach(self.markers(), function(marker) {
-        if (marker.title.includes(op)) {
-          marker.isVisible = true;
-        } else {
-          marker.isVisible = false;
-        }
-      });
-    }
-    self.markers.refresh();
-  }
 
   // - display dropdown menu
   self.artType = ['All','Galleries','Sculptures','None'];
@@ -188,7 +209,6 @@ function appViewModel(arr) {
   self.searchString = ko.observable('');
 
   // - handle search box input text
-
   self.onSearchStringChange = function() {
     self.updateMarkers(self.searchString());
   }
@@ -197,5 +217,5 @@ function appViewModel(arr) {
 // - bind the ViewModel and pass in the
 //   backup data in case the API call fails
 // - locations array is from ./locations.js
-ko.applyBindings(appViewModel(locations));
+ko.applyBindings(appViewModel());
 
