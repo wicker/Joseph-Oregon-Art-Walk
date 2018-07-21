@@ -95,6 +95,8 @@ function initMarkers(artAPIList) {
       marker.url = artListItem.artistURL;
     }
 
+    marker.arttype = artListItem.arttype;
+
     // google maps needs these in the marker
     marker.position = {'lat':artListItem.lat,
                        'lng':artListItem.lng};
@@ -106,6 +108,7 @@ function initMarkers(artAPIList) {
     // now build the actual maps-compatible markers
     mapMarker = new google.maps.Marker({
       animation: marker.animation,
+      arttype: marker.arttype,
       desc: marker.description,
       id: marker.id,
       imgSrc: marker.imgSrc,
@@ -122,6 +125,7 @@ function initMarkers(artAPIList) {
 
   }));
   console.log(markers());
+  markers.refresh();
 
 }
 
@@ -168,7 +172,8 @@ function updateMarkers(op) {
     });
   }
 
-  console.log(markers());
+  console.log(markers()[0].visible );
+  markers.refresh();
 }
 
 // animate a marker
@@ -183,6 +188,12 @@ function appViewModel() {
   var self = this;
 
   self.markers = ko.observableArray([]);
+
+	ko.observableArray.fn.refresh = function () {
+    var data = this();
+    this(null);
+    this(data);
+  }
 
   self.searchString = '';
 
