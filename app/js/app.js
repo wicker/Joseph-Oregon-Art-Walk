@@ -1,6 +1,14 @@
 // Google Maps object
 map = {};
 
+function initMap() {
+  console.log('initMap');
+}
+
+function handleMapsAPIError() {
+  console.log('error');
+}
+
 function appViewModel(arr) {
 
   var self = this;
