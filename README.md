@@ -99,3 +99,11 @@ The displayed list of statues and galleries now refreshes smoothly with every ke
 `commit #bd8f273: feat: Add and bind the search box`
 
 ![Commit #bd8f273](docs/progress-commit-bd8f273-view.png)
+
+Once the two asynchronous API calls are working, the blank map is visible and the rest of the functions are prototyped to return strings to console.log() and the program architecture is finalized. 
+
+Both calls are asynchronous, but the Google Maps API callback `initMap` binds the ViewModel, which itself calls the Joseph Art Walk API. If the Maps API call fails, though, the rest of the app never loads, which is a problem. 
+
+`commit #fa02e10: refactor: Prototype remaining functions`
+
+![Commit #fa02e10](docs/progress-commit-fa02e10-view.png)
