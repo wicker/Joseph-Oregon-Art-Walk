@@ -1,15 +1,55 @@
 // Google Maps object
-map = {};
-
 function initMap() {
   console.log('initMap');
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 45.3536044, lng: -117.2287397},
+    zoom: 15
+  });
+
+  // - bind the ViewModel and pass in the
+  //   backup data in case the API call fails
+  // - locations array is from ./locations.js
+  ko.applyBindings(appViewModel(locations, map));
 }
 
 function handleMapsAPIError() {
   console.log('error');
 }
 
-function appViewModel(arr) {
+// - todo: add error handling
+function fetchJosephArtAPI() {
+
+  artWalkAPIMarkers = [];
+  var request = new XMLHttpRequest();
+
+  request.open('GET', 'https://api.josephartwalk.org/art');
+
+  request.onload = function() {
+
+    var data = JSON.parse(this.response);
+
+    data.art.forEach(item => {
+      artWalkAPIMarkers.push(item);
+    });
+
+    initMarkers(artWalkAPIMarkers);
+
+  }
+  request.send();
+
+  console.log('fetchJosephArtAPI');
+}
+
+function initMarkers(artAPIList) {
+  console.log('initMarkers', artAPIList);
+}
+
+function updateMarkers() {
+  console.log('updateMarkers');
+}
+
+function appViewModel(arr, map) {
 
   var self = this;
 
@@ -23,12 +63,14 @@ function appViewModel(arr) {
     this(data);
 	}
 
+  fetchJosephArtAPI();
+
   // - create the markers list, which is observable
   // - set titles and visibility
   // - the individual array elements are not observable
   //   and require the refresh function to trigger a
   //   re-render when the properties are updated
-  self.initMarkers = function() {
+  self.initMarkers2 = function() {
     self.markers = ko.observableArray(arr);
 
     ko.utils.arrayForEach(self.markers(), (function(marker) {
@@ -38,13 +80,21 @@ function appViewModel(arr) {
         marker.title = marker.title;
       }
       marker.isVisible = true;
+
+      var infoWindow = new google.maps.InfoWindow();
+
+
+      //console.log(marker);
+
     }));
+
+
     self.markers.refresh();
 
     // todo: remove all untitled elements
     //self.markers = markers.filter(marker => marker.title != "");
   }
-  self.initMarkers();
+  self.initMarkers2();
 
   // - update the vsibility of all markers
   // - acceptable operations are strings:
@@ -109,7 +159,3 @@ function appViewModel(arr) {
   }
 }
 
-// - bind the ViewModel and pass in the
-//   backup data in case the API call fails
-// - locations array is from ./locations.js
-ko.applyBindings(appViewModel(locations));
