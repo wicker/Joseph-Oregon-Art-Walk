@@ -64,7 +64,7 @@ function handleJosephArtAPIError() {
 // it should contain an observable visible property so
 //   KnockoutJS knows to refresh the page when that is changed
 function initMarkers(artAPIList) {
-  console.log('initMarkers', artAPIList);
+  console.log('initMarkers'); //, artAPIList);
 
   var idCount = 0;
   var marker;
@@ -124,7 +124,6 @@ function initMarkers(artAPIList) {
     markers().push(mapMarker);
 
   }));
-  console.log(markers());
   markers.refresh();
 
 }
@@ -144,8 +143,8 @@ function initMarkers(artAPIList) {
 function updateMarkers(op) {
   console.log('updateMarkers');
 
-  // FIGURE OUT REFRESH, SEE IF THIS CHANGE WORKED
-
+  // update the visible property on each marker
+  // which knockout will observe and update on the list
   if (op == 'show_all') {
     ko.utils.arrayForEach(markers(), function(marker) {
       marker.visible = true;
@@ -172,7 +171,17 @@ function updateMarkers(op) {
     });
   }
 
-  console.log(markers()[0].visible );
+  // show only visible markers on the Google Map
+  ko.utils.arrayForEach(markers(), function(marker) {
+    if (marker.visible) {
+      marker.setMap(map);
+      bounds.extend(marker.position);
+      map.fitBounds(bounds);
+    } else {
+      marker.setMap(null);
+    }
+  });
+
   markers.refresh();
 }
 
