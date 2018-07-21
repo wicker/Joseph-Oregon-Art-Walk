@@ -20,10 +20,6 @@ function initMap() {
 
   var infoWindow = new google.maps.InfoWindow();
 
-  // - bind the ViewModel and pass in the
-  //   backup data in case the API call fails
-  // - locations array is from ./locations.js
-  ko.applyBindings(appViewModel(locations));
 }
 
 // handle Google Maps API errors
@@ -197,4 +193,9 @@ function appViewModel(arr) {
     self.updateMarkers(self.searchString());
   }
 }
+
+// - bind the ViewModel and pass in the
+//   backup data in case the API call fails
+// - locations array is from ./locations.js
+ko.applyBindings(appViewModel(locations));
 
