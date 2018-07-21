@@ -1,23 +1,37 @@
-// Google Maps object
+// define globals
+var markers;
+var map;
+var bounds;
+var infoWindow;
+
+// this is a callback function for Google Maps API
+// - create Google Maps map, bounds, and infoWindow
+// - bind to the ViewModel and pass in the backup data
+// TODO: remove backup data, leave map empty if API call fails
 function initMap() {
   console.log('initMap');
 
-  map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 45.3536044, lng: -117.2287397},
     zoom: 15
   });
 
+  var bounds = new google.maps.LatLngBounds();
+
+  var infoWindow = new google.maps.InfoWindow();
+
   // - bind the ViewModel and pass in the
   //   backup data in case the API call fails
   // - locations array is from ./locations.js
-  ko.applyBindings(appViewModel(locations, map));
+  ko.applyBindings(appViewModel(locations));
 }
 
+// handle Google Maps API errors
 function handleMapsAPIError() {
-  console.log('error');
+  console.log('Google Maps API error');
 }
 
-// - todo: add error handling
+// todo: add error handling
 function fetchJosephArtAPI() {
 
   artWalkAPIMarkers = [];
@@ -41,15 +55,40 @@ function fetchJosephArtAPI() {
   console.log('fetchJosephArtAPI');
 }
 
+// handle Joseph Art Walk API errors
+function handleJosephArtAPIError() {
+  console.log('Joseph Art Walk API error');
+}
+
+// initalize the list of markers
+// -----------------------------
+// the master list of markers might need to be global
+// it should contain all the properties needed by
+// - google maps to display marker, bounds, and infoWindow
+// - filteredList to display image, artist info, title, etc
+// it should contain an observable isVisible property so
+//   KnockoutJS knows to refresh the page when that is changed
 function initMarkers(artAPIList) {
   console.log('initMarkers', artAPIList);
 }
 
+// change isVisible property where appropriate
+// force a refresh of the map and its markers
+// - clear map
+// - setMap and bounds.extend for each item
+// - map.fitBounds when finished for the whole map
 function updateMarkers() {
   console.log('updateMarkers');
 }
 
-function appViewModel(arr, map) {
+// animate a marker
+// - bounce
+// - change color
+function animateMarker () {
+  console.log('animateMarker');
+}
+
+function appViewModel(arr) {
 
   var self = this;
 
