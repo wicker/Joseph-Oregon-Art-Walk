@@ -12,7 +12,7 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 45.3536044, lng: -117.2287397},
-    zoom: 15
+    zoom: 16
   });
 
   bounds = new google.maps.LatLngBounds();
@@ -123,9 +123,13 @@ function initMarkers(artAPIList) {
     // and push it to the global markers list
     markers().push(mapMarker);
 
+    mapMarker.addListener('click', function() {
+      animateMarker(this);
+      populateInfoWindow(this, infoWindow);
+    });
+
   }));
   markers.refresh();
-
 }
 
 // - update the visibility of all markers
@@ -185,11 +189,37 @@ function updateMarkers(op) {
   markers.refresh();
 }
 
+// populate the info window
+function populateInfoWindow(marker, infoWindow) {
+
+  if (infoWindow.marker != marker) {
+    infoWindow.marker = marker;
+  }
+
+  infoWindowContent = marker.desc;
+
+  infoWindow.setContent(infoWindowContent);
+
+  infoWindow.open(map, marker);
+  infoWindow.addListener('closeclick', function() {
+    infoWindow.setMarker(null);
+  });
+
+}
+
 // animate a marker
 // - bounce
-// - change color
-function animateMarker () {
+function animateMarker (marker) {
   console.log('animateMarker');
+
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+      marker.setAnimation(null);
+    }, 2000);
+  }
 }
 
 function appViewModel() {

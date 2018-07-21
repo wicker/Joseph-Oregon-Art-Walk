@@ -29,6 +29,10 @@ section {
   height: 40vh;
 }
 
+.gm-style-iw {
+  color: #000;
+}
+
 #filterInput {
   background-color: 20px solid #00352c;
 }
@@ -52,5 +56,12 @@ section {
 
 #filteredList {
   border: 1px solid #000;
+  list-style-type: none;
+}
+
+#filteredList li {
+  width: 25%;
+  border: 1px solid #000;
+  text-align: center;
 }
 
