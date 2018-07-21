@@ -107,3 +107,27 @@ Both calls are asynchronous, but the Google Maps API callback `initMap` binds th
 `commit #fa02e10: refactor: Prototype remaining functions`
 
 ![Commit #fa02e10](docs/progress-commit-fa02e10-view.png)
+
+Initializing the list of markers, which now lives in `AppViewModel`, happens now in its own separate function, `initMarkers`, that creates each marker member with everything needed by both the filtered list and the map. 
+
+```
+mapMarker = new google.maps.Marker({
+ animation: marker.animation,
+ arttype: marker.arttype,
+ desc: marker.description,
+ id: marker.id,
+ imgSrc: marker.imgSrc,
+ imgAlt: marker.imgAlt,
+ map: marker.map,
+ position: marker.position,
+ title: marker.title,
+ url: marker.url,
+ visible: marker.visible()
+});
+```
+
+It's an ongoing struggle to get KnockoutJS to observe the 'visible' tag in the list of markers, so for the moment the hacky refresh technique to refresh the entire array is in place. The `updateMarkers` function is called by each keystroke in the search box or by a selection in the dropdown menu, and all it does is set the `visible` property on each `marker` accordingly.
+
+`commit #880223a: feat: Filter map and list`
+
+![Commit #880223a](docs/progress-commit-880223a-view.png)
