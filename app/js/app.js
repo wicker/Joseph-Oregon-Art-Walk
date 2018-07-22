@@ -8,7 +8,6 @@ var infoWindow;
 // - bind to the ViewModel and pass in the backup data
 // TODO: remove backup data, leave map empty if API call fails
 function initMap() {
-  console.log('initMap');
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 45.3536044, lng: -117.2287397},
@@ -47,7 +46,6 @@ function fetchJosephArtAPI() {
   }
   request.send();
 
-  console.log('fetchJosephArtAPI');
 }
 
 // handle Joseph Art Walk API errors
@@ -64,7 +62,6 @@ function handleJosephArtAPIError() {
 // it should contain an observable visible property so
 //   KnockoutJS knows to refresh the page when that is changed
 function initMarkers(artAPIList) {
-  console.log('initMarkers'); //, artAPIList);
 
   var idCount = 0;
   var marker;
@@ -145,7 +142,6 @@ function initMarkers(artAPIList) {
 // - setMap and bounds.extend for each item
 // - map.fitBounds when finished for the whole map
 function updateMarkers(op) {
-  console.log('updateMarkers');
 
   // update the visible property on each marker
   // which knockout will observe and update on the list
@@ -201,17 +197,12 @@ function populateInfoWindow(marker, infoWindow) {
   infoWindow.setContent(infoWindowContent);
 
   infoWindow.open(map, marker);
-  infoWindow.addListener('closeclick', function() {
-    infoWindow.setMarker(null);
-  });
 
 }
 
 // animate a marker
 // - bounce
 function animateMarker (marker) {
-  console.log('animateMarker');
-
   if (marker.getAnimation() !== null) {
     marker.setAnimation(null);
   } else {
@@ -245,13 +236,13 @@ function appViewModel() {
   // - handle dropdown menu selections
   self.onArtTypeChange = function(d, e) {
     if (e.target.value == 'Galleries') {
-      self.updateMarkers('gallery');
+      updateMarkers('gallery');
     } else if (e.target.value == 'Sculptures') {
-      self.updateMarkers('statue');
+      updateMarkers('statue');
     } else if (e.target.value == 'All') {
-      self.updateMarkers('show_all');
+      updateMarkers('show_all');
     } else if (e.target.value == 'None') {
-      self.updateMarkers('show_none');
+      updateMarkers('show_none');
     }
   }
 
@@ -260,7 +251,7 @@ function appViewModel() {
 
   // - handle search box input text
   self.onSearchStringChange = function() {
-    self.updateMarkers(self.searchString());
+    updateMarkers(self.searchString());
   }
 }
 
