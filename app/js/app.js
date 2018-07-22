@@ -163,7 +163,7 @@ function updateMarkers(op) {
     });
   } else {
     ko.utils.arrayForEach(markers(), function(marker) {
-      if (marker.title.includes(op)) {
+      if (marker.title.toLowerCase().includes(op.toLowerCase())) {
         marker.visible = true;
       } else {
         marker.visible = false;
