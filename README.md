@@ -131,3 +131,25 @@ It's an ongoing struggle to get KnockoutJS to observe the 'visible' tag in the l
 `commit #880223a: feat: Filter map and list`
 
 ![Commit #880223a](docs/progress-commit-880223a-view.png)
+
+The filtered list looks much better after applying CSS `display: grid` properties and adding a placeholder image until we can grab the iamges from the Joseph Art Walk API. The filtered list doesn't look good on mobile yet, but that will be easy to fix by applying mobile queries to the filtered list grid.
+
+`commit #a9de359: feat: Add CSS grid to filtered list`
+
+Some internal refactoring of self/this and removing logging statements makes the code cleaner. The log statements were used to examine the marker object as it was manipulated by different user inputs.  
+
+`commit #73728a0: refactor: Fix this/self, remove console.log`
+
+Because users might be entering text to the search box on a laptop or on their phones, it's best to make the search results case-insensitive. This is done by comparing the lower case marker title to the lower case search string.
+
+```
+if (marker.title.toLowerCase().includes(op.toLowerCase())) {
+	marker.visible = true;
+} else {
+	marker.visible = false;
+}
+```
+
+`commit #4fbffb4: feat: Make search case-insensitive`
+
+![Commit #4fbffb4](docs/progress-commit-4fbffb4-view.png)
