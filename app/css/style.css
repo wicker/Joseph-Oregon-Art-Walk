@@ -50,18 +50,51 @@ section {
   width: 100%;
 }
 
-#filteredListContainer {
-  border: 1px solid #000; 
-}
-
 #filteredList {
-  border: 1px solid #000;
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: 1fr 1fr 1fr;
   list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 #filteredList li {
-  width: 25%;
   border: 1px solid #000;
+  border-radius: 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 2em;
+  vertical-align: text-top;
+}
+
+#filteredList li div h4 {
+  padding: 10px;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+#filteredList li div p {
+  padding: 20px;
+  font-size: 0.6em;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+#filteredList li div img {
+  max-width: 100%;
+}
+
+footer {
+  background-color: #00352c;
+  color: #fff;
+  margin: 0;
+  padding: 30px;
   text-align: center;
 }
+
+footer a, footer a:visited {
+  color: #fff;
+}
+
 

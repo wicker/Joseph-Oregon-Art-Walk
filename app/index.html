@@ -31,17 +31,26 @@
            data-bind="textInput: searchString, event: {keyup: onSearchStringChange}" />
 
     <select data-bind="options: artType, value: artTypeToShow, event: {change: onArtTypeChange}"></select>
-    <p data-bind="text: artTypeToShow"></p>
 
   </section>
 
   <section id="filteredListContainer">
 
     <ul id="filteredList" data-bind="foreach: markers">
-      <li data-bind="text: title, visible: visible"></li>
+      <li data-bind="visible: visible, event: {click: animateMarker}">
+        <div>
+          <h4 data-bind="text: title"></h4>
+          <img src="img/placeholder.png">
+          <p data-bind="text: desc"></p>
+        </div>
+      </li>
     </ul>
 
   </section>
+
+  <footer>
+    <a href="https://github.com/wicker/Joseph-Oregon-Art-Walk">Github</a>
+  </footer>
 
   <script src="js/app.js"></script>
 </body>
