@@ -23,16 +23,16 @@ The call to the [Joseph Art Walk API](https://api.josephartwalk.org) returns a l
 |artist|"Ramon Parmenter"|
 |artistURL|"http://josephoregon.com/ramon-parmenter"|
 |location|"in front of The Dog Spot"|
-|lat 45.35149|
-|lng -117.229985|
+|lat|45.35149|
+|lng|-117.229985|
 |corner|"1st St and Main St"|
 |medium|"bronze"|
-|title "Garden Walk"|
+|title|"Garden Walk"|
 |imgSrc|""|
 |imgAttribution|""|
 |imgLicense|""|
 |imgLicenseLink|""|
-|arttype "statue"|||
+|arttype|"statue"|
 
 ### View
 
