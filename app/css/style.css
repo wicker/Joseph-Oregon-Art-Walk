@@ -1,8 +1,8 @@
 body {
+  background-color: #004d40;
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #004d40;
 }
 
 header {
@@ -39,10 +39,10 @@ section {
   border: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  max-width: 700px;
   margin: 0 auto;
-  text-align: center;
+  max-width: 700px;
   padding: 0 0 30px 0;
+  text-align: center;
 }
 
 #filterInput div {
@@ -57,11 +57,11 @@ section {
 }
 
 #filterInput div select {
-  width: 200px;
   background-color: #ffffff;
+  border: 0;
   color: #000;
-  border: 0px;
   padding: 15px;
+  width: 200px;
 }
 
 #filteredList {
@@ -74,33 +74,33 @@ section {
 }
 
 #filteredListContainer h1 {
-  text-align: center;
   margin: 0 auto;
+  text-align: center;
 }
 
 #filteredList li {
   background-color: #00352c;
   border: 1px solid #000;
   border-radius: 20px;
-  text-align: center;
   display: inline-block;
   font-size: 2em;
   margin: 0 auto;
   max-width: 300px;
+  text-align: center;
   vertical-align: text-top;
 }
 
 #filteredList li div h4 {
-  padding: 20px;
   margin: 0 auto;
   max-width: 300px;
+  padding: 20px;
 }
 
 #filteredList li div p {
-  padding: 20px;
   font-size: 0.6em;
-  max-width: 300px;
   margin: 0 auto;
+  max-width: 300px;
+  padding: 20px;
 }
 
 #filteredList li div img {
