@@ -28,11 +28,17 @@
 
   <section id="filterInput">
 
-    <input id="searchBox" 
-           placeholder="Start typing..."
-           data-bind="textInput: searchString, event: {keyup: onSearchStringChange}" />
+    <div>
+      <h3>Search by Title</h3>
+      <input id="searchBox" 
+             placeholder="Start typing..."
+             data-bind="textInput: searchString, event: {keyup: onSearchStringChange}" />
+    </div>
 
-    <select data-bind="options: artType, value: artTypeToShow, event: {change: onArtTypeChange}"></select>
+    <div>
+      <h3>Sort by Type</h3>
+      <select data-bind="options: artType, value: artTypeToShow, event: {change: onArtTypeChange}"></select>
+    </div>
 
   </section>
 
