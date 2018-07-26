@@ -216,7 +216,7 @@ function populateInfoWindow(marker, infoWindow) {
     infoWindow.marker = marker;
   }
 
-  infoWindowContent = marker.desc;
+  infoWindowContent = '<h1>'+marker.title+'</h1><p>'+marker.desc+'</p>';
 
   infoWindow.setContent(infoWindowContent);
 
