@@ -85,6 +85,8 @@ section {
   text-align: center;
   display: inline-block;
   font-size: 2em;
+  margin: 0 auto;
+  max-width: 300px;
   vertical-align: text-top;
 }
 
