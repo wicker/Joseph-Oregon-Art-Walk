@@ -219,7 +219,10 @@ function populateInfoWindow(marker, infoWindow) {
 
   infoWindowContent = '<h1>'+marker.title+'</h1><p>'+marker.desc+'</p>';
 
-  infoWindow.setContent(infoWindowContent);
+  infoWindow.setOptions({
+    maxWidth: 300,
+    content: infoWindowContent
+  });
 
   infoWindow.open(map, marker);
 
