@@ -13,8 +13,8 @@ var artLoaded = false;
 function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 45.3536044, lng: -117.2287397},
-    zoom: 16
+    center: {lat: 45.3547259, lng: -117.2295551},
+    zoom: 15
   });
 
   bounds = new google.maps.LatLngBounds();
