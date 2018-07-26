@@ -3,11 +3,13 @@ var map;
 var bounds;
 var infoWindow;
 
+var mapLoaded = false;
+var artLoaded = false;
 
 // this is a callback function for Google Maps API
 // - create Google Maps map, bounds, and infoWindow
 // - bind to the ViewModel and pass in the backup data
-// TODO: remove backup data, leave map empty if API call fails
+// - load the art markers if the art API has returned
 function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
@@ -19,6 +21,11 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow();
 
+  mapLoaded = true;
+
+  if (artLoaded) {
+    initMarkers(artWalkAPIMarkers);
+  }
 }
 
 // handle Google Maps API errors
@@ -30,6 +37,7 @@ function handleMapsAPIError() {
 // that is the content of the application.
 // - it should be valid JSON
 // - network or content failure shows an alert to the user
+// - load the art markers if the map API has returned
 function fetchJosephArtAPI() {
 
   artWalkAPIMarkers = [];
@@ -52,7 +60,11 @@ function fetchJosephArtAPI() {
         artWalkAPIMarkers.push(item);
       });
 
-      initMarkers(artWalkAPIMarkers);
+      artLoaded = true;
+
+      if (mapLoaded) {
+        initMarkers(artWalkAPIMarkers);
+      }
     }
 
   }
