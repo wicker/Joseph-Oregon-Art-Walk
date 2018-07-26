@@ -3,6 +3,7 @@ var map;
 var bounds;
 var infoWindow;
 
+
 // this is a callback function for Google Maps API
 // - create Google Maps map, bounds, and infoWindow
 // - bind to the ViewModel and pass in the backup data
@@ -22,10 +23,13 @@ function initMap() {
 
 // handle Google Maps API errors
 function handleMapsAPIError() {
-  console.log('Google Maps API error');
+  alert('Something has gone wrong with the map. Please refresh your browser.');
 }
 
-// todo: add error handling
+// fetch a JSON object containing the information
+// that is the content of the application.
+// - it should be valid JSON
+// - network or content failure shows an alert to the user
 function fetchJosephArtAPI() {
 
   artWalkAPIMarkers = [];
@@ -33,15 +37,23 @@ function fetchJosephArtAPI() {
 
   request.open('GET', 'https://api.josephartwalk.org/art');
 
+  request.addEventListener('error', handleJosephArtAPIError);
+
   request.onload = function() {
 
-    var data = JSON.parse(this.response);
+    // check the response for valid JSON
+    resp = this.response;
+    if (resp[0] !== '{') {
+      handleJosephArtAPIError();
+    } else {
+      var data = JSON.parse(this.response);
 
-    data.art.forEach(item => {
-      artWalkAPIMarkers.push(item);
-    });
+      data.art.forEach(item => {
+        artWalkAPIMarkers.push(item);
+      });
 
-    initMarkers(artWalkAPIMarkers);
+      initMarkers(artWalkAPIMarkers);
+    }
 
   }
   request.send();
@@ -50,7 +62,7 @@ function fetchJosephArtAPI() {
 
 // handle Joseph Art Walk API errors
 function handleJosephArtAPIError() {
-  console.log('Joseph Art Walk API error');
+  alert('Something has gone wrong with the Joseph Art Walk API. Please refresh your browser.');
 }
 
 // initalize the list of markers
@@ -225,8 +237,7 @@ function appViewModel() {
     this(data);
   }
 
-  self.searchString = '';
-
+  self.mapErrorString = ko.observable('Attempting to laod the map...');
   fetchJosephArtAPI();
 
   // - display dropdown menu
@@ -234,7 +245,9 @@ function appViewModel() {
   self.artTypeToShow = ko.observable();
 
   // - handle dropdown menu selections
+  // - clear the search box
   self.onArtTypeChange = function(d, e) {
+
     if (e.target.value == 'Galleries') {
       updateMarkers('gallery');
     } else if (e.target.value == 'Sculptures') {
