@@ -260,6 +260,7 @@ function appViewModel() {
   // - clear the search box
   self.onArtTypeChange = function(d, e) {
 
+    self.searchString('');
     if (e.target.value == 'Galleries') {
       updateMarkers('gallery');
     } else if (e.target.value == 'Sculptures') {
@@ -276,6 +277,7 @@ function appViewModel() {
 
   // - handle search box input text
   self.onSearchStringChange = function() {
+    self.artTypeToShow('All');
     updateMarkers(self.searchString());
   }
 }

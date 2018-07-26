@@ -44,6 +44,8 @@
 
   <section id="filteredListContainer">
 
+    <h1 data-bind="text: artTypeToShow"></h1>
+
     <ul id="filteredList" data-bind="foreach: markers">
       <li data-bind="visible: visible, event: {click: animateMarker}">
         <div>
@@ -57,7 +59,7 @@
   </section>
 
   <footer>
-    <a href="https://github.com/wicker/Joseph-Oregon-Art-Walk">Github</a>
+    <p>This source code for this open source app is available on <a href="https://github.com/wicker/Joseph-Oregon-Art-Walk">Github</a></p>
   </footer>
 
   <script src="js/app.js"></script>
