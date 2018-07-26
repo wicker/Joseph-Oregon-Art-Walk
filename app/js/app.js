@@ -101,14 +101,14 @@ function initMarkers(artAPIList) {
       marker.title = artListItem.gallery;
       marker.description = 'Located ' + artListItem.location + '.';
       marker.url = artListItem.galleryURL;
-      marker.imgSrc = '';
-      marker.imgAlt = '';
+      marker.imgSrc = artListItem.imgSrc;
+      marker.imgAlt = artListItem.imgAttribution + ' ' + artListItem.imgLicense;
     }
     else if (artListItem.arttype == "statue") {
       marker.title = artListItem.title;
       marker.artist = artListItem.artist;
       marker.imgSrc = artListItem.imgSrc;
-      marker.imgAlt = artListItem.imgAttribution;
+      marker.imgAlt = artListItem.imgAttribution + ' ' + artListItem.imgLicense;
       marker.description = artListItem.title + ' by ' + artListItem.artist
                            + ' is a ' + artListItem.medium + ' ' + artListItem.arttype
                            + ' at ' + artListItem.corner
@@ -204,6 +204,7 @@ function updateMarkers(op) {
     } else {
       marker.setMap(null);
     }
+    console.log(marker);
   });
 
   markers.refresh();
