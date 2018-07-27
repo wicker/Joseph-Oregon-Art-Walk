@@ -38,7 +38,7 @@ section {
   background-color: #004d40;
   border: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   margin: 0 auto;
   max-width: 700px;
   padding: 0 0 30px 0;
@@ -67,7 +67,7 @@ section {
 #filteredList {
   display: grid;
   grid-gap: 60px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   list-style-type: none;
   margin: 0;
   padding: 20px;
@@ -85,21 +85,21 @@ section {
   display: inline-block;
   font-size: 2em;
   margin: 0 auto;
-  max-width: 300px;
+  max-width: 200px;
   text-align: center;
   vertical-align: text-top;
 }
 
 #filteredList li div h4 {
   margin: 0 auto;
-  max-width: 300px;
+  max-width: 200px;
   padding: 20px;
 }
 
 #filteredList li div p {
   font-size: 0.6em;
   margin: 0 auto;
-  max-width: 300px;
+  max-width: 200px;
   padding: 20px;
 }
 

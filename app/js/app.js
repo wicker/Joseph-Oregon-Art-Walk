@@ -223,7 +223,7 @@ function populateInfoWindow(marker, infoWindow) {
   infoWindowContent = '<h1>'+marker.title+'</h1><p>'+marker.desc+'</p>';
 
   infoWindow.setOptions({
-    maxWidth: 300,
+    maxWidth: 200,
     content: infoWindowContent
   });
 
