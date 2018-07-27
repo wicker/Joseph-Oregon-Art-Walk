@@ -14,7 +14,7 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 45.3547259, lng: -117.2295551},
-    zoom: 15
+    zoom: 16
   });
 
   bounds = new google.maps.LatLngBounds();
@@ -83,8 +83,9 @@ function handleJosephArtAPIError() {
 // it should contain all the properties needed by
 // - google maps to display marker, bounds, and infoWindow
 // - filteredList to display image, artist info, title, etc
-// it should contain an observable visible property so
-//   KnockoutJS knows to refresh the page when that is changed
+// - each marker as well as each marker's 'visible' property
+//   are observable so KnockoutJS knows to refresh the
+//   page whenever that value is changed
 function initMarkers(artAPIList) {
 
   var idCount = 0;
@@ -124,7 +125,7 @@ function initMarkers(artAPIList) {
     marker.animation = google.maps.Animation.DROP;
     marker.id = idCount;
     marker.map = map;
-    marker.visible = ko.observable(true);
+    marker.visible = true;
 
     // now build the actual maps-compatible markers
     mapMarker = new google.maps.Marker({
@@ -138,30 +139,38 @@ function initMarkers(artAPIList) {
       position: marker.position,
       title: marker.title,
       url: marker.url,
-      visible: marker.visible()
+      visible: marker.visible
     });
-
-    // and push it to the global markers list
-    markers().push(mapMarker);
 
     mapMarker.addListener('click', function() {
       animateMarker(this);
       populateInfoWindow(this, infoWindow);
     });
 
+    mapMarker.visible = ko.observable(true);
+    mapMarker = ko.observable(mapMarker);
+
+    // and push it to the global markers list
+    markers.push(mapMarker);
+
   }));
-  markers.refresh();
+
+//    ko.utils.arrayForEach(markers(), function(marker) {
+//      marker.visible = ko.observable(false);
+//      marker = ko.observable();
+//    });
+
+
 }
 
-// - update the visibility of all markers
-// - acceptable operations are strings:
-//   - show_all
-//   - show_none
-//   - statue
-//   - gallery
-//   - any other strings will be treated as search results
+// update the visibility of all markers
+// acceptable operations are strings:
+// - show_all
+// - show_none
+// - statue
+// - gallery
+// - any other strings will be treated as search results
 // change visible property where appropriate
-// force a refresh of the map and its markers
 // - clear map
 // - setMap and bounds.extend for each item
 // - map.fitBounds when finished for the whole map
@@ -171,43 +180,41 @@ function updateMarkers(op) {
   // which knockout will observe and update on the list
   if (op == 'show_all') {
     ko.utils.arrayForEach(markers(), function(marker) {
-      marker.visible = true;
+      marker().visible(true);
     });
   } else if (op == 'show_none') {
     ko.utils.arrayForEach(markers(), function(marker) {
-      marker.visible = false;
+      marker().visible(false);
     });
   } else if (op == 'statue' || op == 'gallery') {
     ko.utils.arrayForEach(markers(), function(marker) {
-      if (marker.arttype == op) {
-        marker.visible = true;
+      if (marker().arttype == op) {
+        marker().visible(true);
       } else {
-        marker.visible = false;
+        marker().visible(false);
       }
     });
   } else {
     ko.utils.arrayForEach(markers(), function(marker) {
-      if (marker.title.toLowerCase().includes(op.toLowerCase())) {
-        marker.visible = true;
+      if (marker().title.toLowerCase().includes(op.toLowerCase())) {
+        marker().visible(true);
       } else {
-        marker.visible = false;
+        marker().visible(false);
       }
     });
   }
 
   // show only visible markers on the Google Map
   ko.utils.arrayForEach(markers(), function(marker) {
-    if (marker.visible) {
-      marker.setMap(map);
-      bounds.extend(marker.position);
+    if (marker().visible()) {
+      marker().setMap(map);
+      bounds.extend(marker().position);
       map.fitBounds(bounds);
     } else {
-      marker.setMap(null);
+      marker().setMap(null);
     }
-    console.log(marker);
   });
 
-  markers.refresh();
 }
 
 // populate the info window
@@ -246,12 +253,6 @@ function appViewModel() {
   var self = this;
 
   self.markers = ko.observableArray([]);
-
-	ko.observableArray.fn.refresh = function () {
-    var data = this();
-    this(null);
-    this(data);
-  }
 
   self.mapErrorString = ko.observable('Attempting to laod the map...');
   fetchJosephArtAPI();
