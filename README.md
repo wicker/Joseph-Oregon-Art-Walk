@@ -9,6 +9,10 @@ This app uses [Knockout.js](http://knockoutjs.com/), the [Joseph Art Walk API](h
 1. Download this [zip file](https://github.com/wicker/Joseph-Oregon-Art-Walk/raw/master/release/app-v1.0.zip) or clone the git repository.
 1. Open index.html in your browser.
 
+## Screenshot
+
+![Screenshot](docs/screenshot.png)
+
 ## Why KnockoutJS?
 
 KnockoutJS works on the MVVM design pattern where the UI is separated into three parts:

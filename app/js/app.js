@@ -252,7 +252,7 @@ function appViewModel() {
 
   self.markers = ko.observableArray([]);
 
-  self.mapErrorString = ko.observable('Attempting to laod the map...');
+  self.mapErrorString = ko.observable('Attempting to load the map...');
   fetchJosephArtAPI();
 
   // - display dropdown menu
