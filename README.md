@@ -2,6 +2,13 @@
 
 This app uses [Knockout.js](http://knockoutjs.com/), the [Joseph Art Walk API](https://api.josephartwalk.org/), and the [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial) to show the locations and some background information on the bronze statues and art galleries along Main Street in Joseph, Oregon.
 
+&raquo; [Click here for a live demo](https://josephartwalk.org/)
+
+## Usage
+
+1. Download this [zip file](https://github.com/wicker/Joseph-Oregon-Art-Walk/raw/master/release/app-v1.0.zip) or clone the git repository.
+1. Open index.html in your browser.
+
 ## Why KnockoutJS?
 
 KnockoutJS works on the MVVM design pattern where the UI is separated into three parts:
@@ -153,3 +160,5 @@ if (marker.title.toLowerCase().includes(op.toLowerCase())) {
 `commit #4fbffb4: feat: Make search case-insensitive`
 
 ![Commit #4fbffb4](docs/progress-commit-4fbffb4-view.png)
+
+
