@@ -240,7 +240,7 @@ function animateMarker (marker) {
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function() {
       marker.setAnimation(null);
-    }, 2000);
+    }, 3000);
   }
 
   marker.visibleDesc(!marker.visibleDesc());
