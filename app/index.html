@@ -48,8 +48,8 @@
     <ul id="filteredList" data-bind="foreach: markers">
       <li data-bind="visible: visible, event: {click: animateMarker}">
         <div>
-          <h4 data-bind="text: title"></h4>
           <img data-bind="attr:{src: imgSrc}">
+          <h4 data-bind="text: title"></h4>
           <p data-bind="text: desc, visible: visibleDesc"></p>
         </div>
       </li>
