@@ -147,6 +147,8 @@ function initMarkers(artAPIList) {
       populateInfoWindow(this, infoWindow);
     });
 
+    // set up the observable properties
+    mapMarker.visibleDesc = ko.observable(false);
     mapMarker.visible = ko.observable(true);
     mapMarker = ko.observable(mapMarker);
 
@@ -154,12 +156,6 @@ function initMarkers(artAPIList) {
     markers.push(mapMarker);
 
   }));
-
-//    ko.utils.arrayForEach(markers(), function(marker) {
-//      marker.visible = ko.observable(false);
-//      marker = ko.observable();
-//    });
-
 
 }
 
@@ -246,6 +242,8 @@ function animateMarker (marker) {
       marker.setAnimation(null);
     }, 2000);
   }
+
+  marker.visibleDesc(!marker.visibleDesc());
 }
 
 function appViewModel() {
