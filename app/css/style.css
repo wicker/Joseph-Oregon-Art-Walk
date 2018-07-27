@@ -69,23 +69,10 @@ section {
 #filteredList {
   display: grid;
   grid-gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   list-style-type: none;
   margin: 0;
   padding: 20px;
-}
-
-@media only screen {
-
-  #filteredList {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-
-@media only screen and (max-width: 320px;) {
-
-  #filteredList {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
 }
 
 #filteredListContainer h1 {
@@ -100,21 +87,21 @@ section {
   display: inline-block;
   font-size: 2em;
   margin: 0 auto;
-  max-width: 200px;
+  max-width: 300px;
   text-align: center;
   vertical-align: text-top;
 }
 
 #filteredList li div h4 {
   margin: 0 auto;
-  max-width: 200px;
+  max-width: 300px;
   padding: 20px;
 }
 
 #filteredList li div p {
   font-size: 0.6em;
   margin: 0 auto;
-  max-width: 200px;
+  max-width: 300px;
   padding: 20px;
 }
 
