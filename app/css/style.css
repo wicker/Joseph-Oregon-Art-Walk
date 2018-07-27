@@ -38,7 +38,8 @@ section {
   background-color: #004d40;
   border: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   margin: 0 auto;
   max-width: 700px;
   padding: 0 0 30px 0;
@@ -51,26 +52,40 @@ section {
 
 #searchBox {
   display: block;
-  margin: 20px 0;
+  margin: 20px auto;
   padding: 10px;
-  width: 200px;
+  width: 180px;
 }
 
 #filterInput div select {
   background-color: #ffffff;
   border: 0;
   color: #000;
+  margin: 0 auto;
   padding: 15px;
-  width: 200px;
+  width: 180px;
 }
 
 #filteredList {
   display: grid;
-  grid-gap: 60px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-gap: 40px;
   list-style-type: none;
   margin: 0;
   padding: 20px;
+}
+
+@media only screen {
+
+  #filteredList {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media only screen and (max-width: 320px;) {
+
+  #filteredList {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 }
 
 #filteredListContainer h1 {
