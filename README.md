@@ -2,7 +2,7 @@
 
 This app uses [Knockout.js](http://knockoutjs.com/), the [Joseph Art Walk API](https://api.josephartwalk.org/), and the [Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial) to show the locations and some background information on the bronze statues and art galleries along Main Street in Joseph, Oregon.
 
-&raquo; [Click here for a live demo](https://josephartwalk.org/)
+&raquo; ~Click here for a live demo~
 
 ## Usage
 
